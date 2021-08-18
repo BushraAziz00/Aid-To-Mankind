@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "506024603732",
+    "project_id": "aidtomankind",
+    "storage_bucket": "aidtomankind.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:506024603732:android:4184d79388449d8c1abdc1",
+        "android_client_info": {
+          "package_name": "app.techsol.aidtomankind"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "506024603732-n1c5voj0o8icifj8am7k7mb88ll5p3k2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyATMcZVz3fqMnr24qzBf-f61ueQWJUP-50"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "506024603732-n1c5voj0o8icifj8am7k7mb88ll5p3k2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

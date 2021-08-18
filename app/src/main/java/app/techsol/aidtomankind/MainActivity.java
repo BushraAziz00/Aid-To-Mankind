@@ -1,5 +1,6 @@
 package app.techsol.aidtomankind;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -8,8 +9,17 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 import com.kaopiz.kprogresshud.KProgressHUD;
+
+import org.jetbrains.annotations.NotNull;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -17,12 +27,14 @@ public class MainActivity extends AppCompatActivity {
     Button mLoginBtn;
     TextView goToSignup;
     EditText phoneET, passwordET;
+    FirebaseAuth auth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         getSupportActionBar().hide();
 
+        auth=FirebaseAuth.getInstance();
         phoneET = findViewById(R.id.phoneET);
         passwordET = findViewById(R.id.passwordEt);
         goToSignup = findViewById(R.id.goToSignup);
@@ -50,7 +62,19 @@ public class MainActivity extends AppCompatActivity {
                             .setDetailsLabel("Please Wait...")
                             .setDimAmount(0.3f)
                             .show();
-
+                            auth.signInWithEmailAndPassword(phoneET.getText().toString(), passwordET.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull @NotNull Task<AuthResult> task) {
+                                    if (task.isSuccessful()){
+                                        startActivity(new Intent(getBaseContext(), UserDashboardActivity.class));
+                                    }
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull @NotNull Exception e) {
+                                    Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                                }
+                            });
 //                    startActivity(new Intent(getBaseContext(), MainActivity.class));
                 }
             }

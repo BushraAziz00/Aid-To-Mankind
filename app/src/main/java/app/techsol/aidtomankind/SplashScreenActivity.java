@@ -40,7 +40,6 @@ public class SplashScreenActivity extends AppCompatActivity {
             public void run() {
                 super.run();
                 try {
-
                     sleep(4000);
                     Intent mintent=new Intent(SplashScreenActivity.this,MainActivity.class);
                     startActivity(mintent);

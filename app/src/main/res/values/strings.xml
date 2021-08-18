@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">AidToMankind</string>
+    <string-array name="medicine_type">
+        <item>Headache</item>
+        <item>Heart</item>
+        <item>Stomach</item>
+        <item>Artho</item>
+    </string-array>
 </resources>
