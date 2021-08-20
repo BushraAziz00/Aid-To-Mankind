@@ -17,19 +17,23 @@
         <activity android:name=".UserDashboardActivity">
 
         </activity>
-        <activity android:name=".MyOrdersActivity"></activity>
-        <activity android:name=".OrdersActivity"></activity>
+        <activity android:name=".MyOrdersActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            ></activity>
+        <activity android:name=".OrdersActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".ManageUsersActivity" />
         <activity android:name=".ManageOrdersActivity" />
         <activity android:name=".AddMedicineActivity" />
         <activity android:name=".SplashScreenActivity" />
         <activity android:name=".SignupActivity"></activity>
         <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <meta-data

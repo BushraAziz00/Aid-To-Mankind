@@ -1,27 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+android:orientation="vertical"
+tools:context=".OrdersActivity">
+<FrameLayout
+    android:id="@+id/toolbar_container"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#fff"
-    android:orientation="vertical">
+    android:layout_height="wrap_content">
 
-    <FrameLayout xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/customer_content_main"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:context=".Cusmoter.CustomerNavDrawerActivity">
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/main_recycler_vw"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:numColumns="auto_fit"
-            android:stretchMode="columnWidth" />
+    <com.miguelcatalan.materialsearchview.MaterialSearchView
+        android:id="@+id/search_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:hint="Search by State"
+        app:searchVoiceIcon="@drawable/ic_search"/>
+</FrameLayout>
+<androidx.recyclerview.widget.RecyclerView
+    android:id="@+id/main_recycler_vw"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
+</androidx.recyclerview.widget.RecyclerView>
 
-
-    </FrameLayout>
-</ScrollView>
+</LinearLayout>

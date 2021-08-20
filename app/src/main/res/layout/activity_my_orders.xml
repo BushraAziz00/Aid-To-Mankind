@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:context=".Cusmoter.CustomerNavDrawerActivity">
+        tools:context=".OrdersActivity">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/main_recycler_vw"
