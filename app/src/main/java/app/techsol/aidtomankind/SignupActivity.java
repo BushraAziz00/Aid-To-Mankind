@@ -35,7 +35,10 @@ import app.techsol.aidtomankind.Models.UserModel;
 public class SignupActivity extends AppCompatActivity implements LocationListener {
 
     EditText NameET, EmailET, AddressET;
-    String nameStr, emailStr, AddressStr, phoneStr, userLat, userLong, passwordStr;
+    String nameStr, emailStr, AddressStr, phoneStr, passwordStr;
+    String userLat = "72.69151062402631";
+    String userLong = "32.07606572854463";
+
     EditText passwordET;
     Button signupBtn;
     TextView gotoLoginTV;

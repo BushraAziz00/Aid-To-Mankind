@@ -3,7 +3,7 @@
     android:id="@+id/getView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg"
+    android:background="@drawable/bg_icon"
     android:orientation="vertical">
 
     <View
@@ -20,21 +20,8 @@
         android:layout_margin="10dp"
         android:orientation="vertical">
 
-        <ImageView
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_gravity="center"
-            android:scaleType="fitXY"
-            android:src="@drawable/ic_pills" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Sign Up"
-            android:textColor="#fff"
-            android:textSize="30sp"
-            app:fontFamily="@font/baloo" />
+
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/LoginTextInputLayoutStyle"

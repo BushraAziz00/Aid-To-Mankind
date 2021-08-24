@@ -20,7 +20,6 @@ public class SplashScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
         getActionBar().hide();
-        appNameTV=findViewById(R.id.appNameTV);
         mSlogenTV=findViewById(R.id.mSlogenTV);
 
         logoImg=findViewById(R.id.logoImg);
