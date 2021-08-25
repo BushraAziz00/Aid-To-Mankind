@@ -1,6 +1,9 @@
 package app.techsol.aidtomankind;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
@@ -93,7 +96,7 @@ public class PlaceOrderActivity extends AppCompatActivity {
                 holder.ForwardImgBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        openDialog(model.getId(), model.getName(), model.getPrice());
+                        openDialog(model.getId(), model.getName(), model.getPrice(), model.getQuantity(), model.getFormula());
                     }
                 });
                 holder.medInfoImgBtn.setOnClickListener(new View.OnClickListener() {
@@ -144,7 +147,7 @@ public class PlaceOrderActivity extends AppCompatActivity {
         }
     }
 
-    private void openDialog(String id, String MedName, String price) {
+    private void openDialog(String id, String MedName, String price, String Quantity, String Formula) {
         dialog = new Dialog(PlaceOrderActivity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
         dialog.setContentView(R.layout.item_manageorder_dialog_layout);
         dialog.getWindow().getAttributes().windowAnimations = R.style.Theme_AppCompat_DayNight_Dialog_Alert;
@@ -158,19 +161,46 @@ public class PlaceOrderActivity extends AppCompatActivity {
         btnPlaceOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String pushid = UserRef.push().getKey();
-//                String userId=auth.getCurrentUser().getUid();
+                int previousQnty = Integer.parseInt(Quantity);
+                int demandedQnty = Integer.parseInt(quantityET.getText().toString());
+                if (previousQnty < demandedQnty) {
+                    DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            switch (which) {
+                                case DialogInterface.BUTTON_POSITIVE:
+                                    Intent intent = new Intent(getBaseContext(), SugestedMedicineActivity.class);
+                                    intent.putExtra("formula", Formula);
+                                    dialog.dismiss();
+                                    startActivity(intent);
 
-                String currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
+                                    break;
 
-                OrdersModel model = new OrdersModel(pushid, auth.getCurrentUser().getUid(), currentDate, MedName, quantityET.getText().toString(), price, "72.69151062402631", "32.07606572854463", "Placed");
-                OrdersRef.child(pushid).setValue(model).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull @NotNull Task<Void> task) {
-                        Toast.makeText(PlaceOrderActivity.this, "Order Placed Successfully", Toast.LENGTH_SHORT).show();
-                        dialog.dismiss();
-                    }
-                });
+                                case DialogInterface.BUTTON_NEGATIVE:
+                                    //No button clicked
+                                    break;
+                            }
+                        }
+                    };
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(PlaceOrderActivity.this);
+                    builder.setMessage("LowInvetory suggest another Medicine?").setPositiveButton("Yes", dialogClickListener)
+                            .setNegativeButton("No", dialogClickListener).show();
+
+                } else {
+                    String pushid = UserRef.push().getKey();
+
+                    String currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
+
+                    OrdersModel model = new OrdersModel(pushid, auth.getCurrentUser().getUid(), currentDate, MedName, quantityET.getText().toString(), price, userLat, userLong, "Placed");
+                    OrdersRef.child(pushid).setValue(model).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull @NotNull Task<Void> task) {
+                            Toast.makeText(PlaceOrderActivity.this, "Order Placed Successfully", Toast.LENGTH_SHORT).show();
+                            dialog.dismiss();
+                        }
+                    });
+                }
             }
         });
 

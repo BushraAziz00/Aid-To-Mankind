@@ -18,7 +18,8 @@
         android:roundIcon="@drawable/app_icon"
         android:supportsRtl="true"
         android:theme="@style/Theme.AidToMankind">
-        <activity android:name=".PlaceOrderActivity"></activity>
+        <activity android:name=".SugestedMedicineActivity"></activity>
+        <activity android:name=".PlaceOrderActivity" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -36,21 +37,21 @@
             android:label="@string/title_activity_maps" />
         <activity android:name=".ManageMedicineActivity" />
         <activity android:name=".AdminDashboardActivity">
+
+        </activity>
+        <activity android:name=".UserDashboardActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".UserDashboardActivity">
-
-        </activity>
         <activity android:name=".MyOrdersActivity" />
         <activity android:name=".OrdersActivity" />
         <activity android:name=".ManageUsersActivity" />
         <activity android:name=".ManageOrdersActivity" />
         <activity android:name=".AddMedicineActivity" />
-        <activity android:name=".SplashScreenActivity"></activity>
+        <activity android:name=".SplashScreenActivity" />
         <activity android:name=".SignupActivity" />
         <activity android:name=".MainActivity" />
 
