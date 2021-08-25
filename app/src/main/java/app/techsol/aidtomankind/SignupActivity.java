@@ -63,6 +63,7 @@ public class SignupActivity extends AppCompatActivity implements LocationListene
         NameET = findViewById(R.id.NameET);
         EmailET = findViewById(R.id.EmailET);
         AddressET = findViewById(R.id.AddressET);
+        PhoneET = findViewById(R.id.PhoneET);
         NameET = findViewById(R.id.NameET);
         passwordET = findViewById(R.id.passwordET);
         signupBtn = findViewById(R.id.signupBtn);

@@ -88,7 +88,6 @@ public class MainActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists())
                     UserType = dataSnapshot.child("usertype").getValue().toString();
-                Toast.makeText(MainActivity.this, UserType, Toast.LENGTH_SHORT).show();
 
                 if (UserType.equals("User")) {
                     startActivity(new Intent(MainActivity.this, UserDashboardActivity.class));

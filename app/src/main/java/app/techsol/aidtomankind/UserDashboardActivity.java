@@ -44,6 +44,12 @@ public class UserDashboardActivity extends AppCompatActivity {
         });
         SpecialOffersLL=findViewById(R.id.SpecialOffersLL);
         NearbyLL=findViewById(R.id.NearbyLL);
+        NearbyLL.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getBaseContext(), NearbyShopsActivity.class));
+            }
+        });
 
         ViewFlipper simpleViewFlipper = findViewById(R.id.simpleViewFlipper); // get the reference of ViewFlipper
         for (int i = 0; i < images.length; i++) {

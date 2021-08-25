@@ -31,11 +31,11 @@
             android:theme="@style/LoginTextInputLayoutStyle"
             app:boxStrokeColor="#fff">
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/phoneET"
+                android:id="@+id/PhoneET"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="number"
-                android:textColor="#fff" />
+                 />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -54,7 +54,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"
-                android:textColor="#fff" />
+                 />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -73,7 +73,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text"
-                android:textColor="#fff" />
+                 />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -93,7 +93,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text"
-                android:textColor="#fff" />
+                 />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -112,7 +112,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
-                android:textColor="#fff" />
+                 />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -124,7 +124,8 @@
             android:layout_marginTop="10dp"
             android:background="#2A91E4"
             android:text="Signup"
-            android:textColor="#fff" />
+            android:textColor="#fff"
+             />
 
         <androidx.core.widget.ContentLoadingProgressBar
             android:id="@+id/mProgressBar"
@@ -168,7 +169,7 @@
             android:layout_marginTop="10dp"
             android:background="#2A91E4"
             android:text="Enter  Code"
-            android:textColor="#fff" />
+             />
     </LinearLayout>
 
 </FrameLayout>
