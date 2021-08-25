@@ -46,7 +46,14 @@ public class NearbyShopsActivity extends FragmentActivity implements OnMapReadyC
 
         // Add a marker in Sydney and move the camera
         LatLng readerCollege = new LatLng(32.07626987425718, 72.69022867722524);
+        LatLng readerCollege1 = new LatLng(32.07683351405815, 72.68859789418114);
+        LatLng clinix = new LatLng(32.08467811573734, 72.6888007367479);
+        LatLng DHQPharmacy = new LatLng(32.08602344897322, 72.69041006212035);
         mMap.addMarker(new MarkerOptions().position(readerCollege).title("Madina Pharmacy"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(readerCollege));
+        mMap.addMarker(new MarkerOptions().position(readerCollege1).title("Bismillah Pharmacy"));
+        mMap.addMarker(new MarkerOptions().position(clinix).title("Bismillah Pharmacy"));
+        mMap.addMarker(new MarkerOptions().position(DHQPharmacy).title("DHQ Pharmacy"));
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(32.07626987425718, 72.69022867722524), 12.0f));
+
     }
 }
