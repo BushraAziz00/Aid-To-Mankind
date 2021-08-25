@@ -42,7 +42,6 @@
             android:layout_height="match_parent" />
 
         <TextView
-            android:background="#F44336"
             android:id="@+id/MedStatusTV"
             android:layout_width="0dp"
             android:layout_height="match_parent"

@@ -32,7 +32,7 @@ public class UserDashboardActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(UserDashboardActivity.this, "Clicked", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(getBaseContext(), OrdersActivity.class));
+                startActivity(new Intent(getBaseContext(), PlaceOrderActivity.class));
             }
         });
         MyOrderLL=findViewById(R.id.MyOrderLL);

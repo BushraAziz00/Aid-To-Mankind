@@ -75,6 +75,14 @@ public class ManageUsersActivity extends AppCompatActivity {
 
                 holder.userName.setText(model.getName());
                 holder.userPhone.setText(model.getPhoneno());
+                holder.DeleteImgVw.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        DatabaseReference key= getRef(position);
+                        key.removeValue();
+                    }
+                });
+
             }
 
             @NonNull
@@ -98,13 +106,13 @@ public class ManageUsersActivity extends AppCompatActivity {
         TextView donorPhone, blodTypeTV, donationReqTV, AddStoryTV;
 
 
-        ImageView viewStoryIV;
+        ImageView DeleteImgVw;
 
         public CustomersViewHolder(@NonNull View itemView) {
             super(itemView);
             userName =  itemView.findViewById(R.id.userName);
             userPhone =  itemView.findViewById(R.id.userPhone);
-
+            DeleteImgVw =  itemView.findViewById(R.id.DeleteImgVw);
         }
 
     }

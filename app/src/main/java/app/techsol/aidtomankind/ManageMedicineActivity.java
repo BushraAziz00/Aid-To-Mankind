@@ -129,7 +129,7 @@ public class ManageMedicineActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 int newQnty = Integer.parseInt(quantityET.getText().toString());
-                MedRef.child(MedId).setValue((previousQnty + newQnty) + "").addOnCompleteListener(new OnCompleteListener<Void>() {
+                MedRef.child(MedId).child("quantity").setValue((previousQnty + newQnty) + "").addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull @NotNull Task<Void> task) {
                         if (task.isSuccessful()) {

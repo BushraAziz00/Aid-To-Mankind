@@ -1,7 +1,5 @@
 package app.techsol.aidtomankind;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -13,10 +11,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ViewFlipper;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.firebase.auth.FirebaseAuth;
 
 public class AdminDashboardActivity extends AppCompatActivity {
-    LinearLayout AddMedLL, OrderLL, ManageInventoryLL;
+    LinearLayout AddMedLL, OrderLL, ManageInventoryLL, ManageUsersLL;
 
 
     private FirebaseAuth auth;
@@ -48,7 +48,14 @@ public class AdminDashboardActivity extends AppCompatActivity {
                 startActivity(new Intent(getBaseContext(), ManageMedicineActivity.class));
             }
         });
-        ManageInventoryLL=findViewById(R.id.NearbyLL);
+        ManageUsersLL = findViewById(R.id.ManageUsersLL);
+        ManageUsersLL.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getBaseContext(), ManageUsersActivity.class));
+            }
+        });
+        ManageUsersLL=findViewById(R.id.ManageUsersLL);
 
         ViewFlipper simpleViewFlipper = findViewById(R.id.simpleViewFlipper); // get the reference of ViewFlipper
         for (int i = 0; i < images.length; i++) {

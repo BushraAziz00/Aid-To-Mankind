@@ -34,7 +34,7 @@ import app.techsol.aidtomankind.Models.UserModel;
 
 public class SignupActivity extends AppCompatActivity implements LocationListener {
 
-    EditText NameET, EmailET, AddressET;
+    EditText NameET, EmailET, AddressET, PhoneET;
     String nameStr, emailStr, AddressStr, phoneStr, passwordStr;
     String userLat = "72.69151062402631";
     String userLong = "32.07606572854463";
@@ -146,7 +146,7 @@ public class SignupActivity extends AppCompatActivity implements LocationListene
         nameStr=NameET.getText().toString();
         emailStr=EmailET.getText().toString();
         AddressStr=AddressET.getText().toString();
-        phoneStr=NameET.getText().toString();
+        phoneStr=PhoneET.getText().toString();
         passwordStr=passwordET.getText().toString();
     }
 

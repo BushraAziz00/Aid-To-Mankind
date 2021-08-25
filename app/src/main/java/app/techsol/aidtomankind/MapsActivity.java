@@ -110,7 +110,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         OrderRef.child("userlat").setValue(location.getLongitude()+"");
         OrderRef.child("userlong").setValue(location.getLatitude()+"");
         LatLng sydney = new LatLng(location.getLatitude(), location.getLongitude());
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Mechanic location"));
+        mMap.addMarker(new MarkerOptions().position(sydney).title("Delivery Boy location"));
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 12.0f));
 
 //        getLocationModel model=new getLocationModel(location.getLatitude(), location.getLongitude());

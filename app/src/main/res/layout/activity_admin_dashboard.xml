@@ -66,7 +66,7 @@
 
                     <ImageView
                         android:padding="10dp"
-                        android:src="@drawable/ic_seo"
+                        android:src="@drawable/ic_medicine"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1.5" />
@@ -108,7 +108,7 @@
 
                     <ImageView
                         android:padding="10dp"
-                        android:src="@drawable/ic_received"
+                        android:src="@drawable/ic_order"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1.5" />
@@ -159,7 +159,7 @@
                     android:layout_height="0dp"
                     android:layout_weight="1.5"
                     android:padding="10dp"
-                    android:src="@drawable/ic_offer" />
+                    android:src="@drawable/ic_inventory" />
 
                 <View
                     android:layout_marginRight="5dp"
@@ -190,18 +190,18 @@
             app:cardElevation="5dp">
 
             <LinearLayout
-                android:id="@+id/NearbyLL"
+                android:id="@+id/ManageUsersLL"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:weightSum="2">
 
                 <ImageView
-                    android:padding="10dp"
-                    android:src="@drawable/ic_nearby"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="1.5" />
+                    android:layout_weight="1.5"
+                    android:padding="10dp"
+                    android:src="@drawable/ic_profile" />
 
                 <View
                     android:layout_marginRight="5dp"
@@ -214,7 +214,7 @@
                     android:textStyle="bold"
                     android:textSize="16sp"
                     android:gravity="center"
-                    android:text="Nearby Pharmacy"
+                    android:text="Manage Users"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight=".5" />
