@@ -62,6 +62,27 @@ public class MedicineModel {
     String info;
     String price;
 
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public MedicineModel(String id, String name, String quantity, String type, String formula, String info, String price, String url) {
+        this.id = id;
+        this.name = name;
+        this.quantity = quantity;
+        this.type = type;
+        this.formula = formula;
+        this.info = info;
+        this.price = price;
+        this.url = url;
+    }
+
+    String url;
+
     public String getPrice() {
         return price;
     }
@@ -70,13 +91,5 @@ public class MedicineModel {
         this.price = price;
     }
 
-    public MedicineModel(String id, String name, String quantity, String type, String formula, String info, String price) {
-        this.id = id;
-        this.name = name;
-        this.quantity = quantity;
-        this.type = type;
-        this.formula = formula;
-        this.info = info;
-        this.price = price;
-    }
+
 }

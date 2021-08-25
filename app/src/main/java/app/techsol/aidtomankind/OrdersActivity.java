@@ -26,6 +26,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -93,6 +94,8 @@ public class OrdersActivity extends AppCompatActivity {
             protected void onBindViewHolder(@NonNull final CustomersViewHolder holder, final int position, @NonNull final MedicineModel model) {
 
 
+                Glide.with(getApplicationContext()).load(model.getUrl()).into(holder.imgMedItem);
+
                 DisplayMetrics displaymetrics = new DisplayMetrics();
                 getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
                 //if you need three fix imageview in width
@@ -145,6 +148,7 @@ public class OrdersActivity extends AppCompatActivity {
 
         public CustomersViewHolder(@NonNull View itemView) {
             super(itemView);
+            imgMedItem = itemView.findViewById(R.id.imgMedItem);
             ForwardImgBtn = itemView.findViewById(R.id.ForwardImgBtn);
             MedNameTV = itemView.findViewById(R.id.MedNameTV);
             MedPriceTV = itemView.findViewById(R.id.MedPriceTV);

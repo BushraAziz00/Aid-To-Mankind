@@ -22,6 +22,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -81,15 +82,16 @@ public class PlaceOrderActivity extends AppCompatActivity {
                 .setQuery(MedicineRef, MedicineModel.class)
                 .build();
 
-        final FirebaseRecyclerAdapter<MedicineModel, OrdersActivity.CustomersViewHolder> adapter = new FirebaseRecyclerAdapter<MedicineModel, OrdersActivity.CustomersViewHolder>(options) {
+        final FirebaseRecyclerAdapter<MedicineModel, CustomersViewHolder> adapter = new FirebaseRecyclerAdapter<MedicineModel, CustomersViewHolder>(options) {
             @Override
-            protected void onBindViewHolder(@NonNull final OrdersActivity.CustomersViewHolder holder, final int position, @NonNull final MedicineModel model) {
+            protected void onBindViewHolder(@NonNull final CustomersViewHolder holder, final int position, @NonNull final MedicineModel model) {
 
 
                 DisplayMetrics displaymetrics = new DisplayMetrics();
                 getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
                 //if you need three fix imageview in width
 
+                Glide.with(getApplicationContext()).load(model.getUrl()).into(holder.imgMedItem);
 
                 holder.MedNameTV.setText(model.getName());
                 holder.MedPriceTV.setText("Rs/- " + model.getPrice());
@@ -111,10 +113,10 @@ public class PlaceOrderActivity extends AppCompatActivity {
 
             @NonNull
             @Override
-            public OrdersActivity.CustomersViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+            public CustomersViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
 
                 View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_medince_layout, viewGroup, false);
-                OrdersActivity.CustomersViewHolder customersViewHolder = new OrdersActivity.CustomersViewHolder(view);
+                CustomersViewHolder customersViewHolder = new CustomersViewHolder(view);
                 return customersViewHolder;
             }
         };
@@ -138,6 +140,7 @@ public class PlaceOrderActivity extends AppCompatActivity {
 
         public CustomersViewHolder(@NonNull View itemView) {
             super(itemView);
+            imgMedItem = itemView.findViewById(R.id.imgMedItem);
             ForwardImgBtn = itemView.findViewById(R.id.ForwardImgBtn);
             MedNameTV = itemView.findViewById(R.id.MedNameTV);
             MedPriceTV = itemView.findViewById(R.id.MedPriceTV);
