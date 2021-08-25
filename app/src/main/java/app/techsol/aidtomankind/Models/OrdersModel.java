@@ -1,7 +1,43 @@
 package app.techsol.aidtomankind.Models;
 
 public class OrdersModel {
-    String id, userid, orderdate, medname,quantity, price;
+    String id;
+    String userid;
+    String orderdate;
+    String medname;
+    String quantity;
+    String price;
+    String userlat;
+    String orderstatus;
+
+    public String getOrderstatus() {
+        return orderstatus;
+    }
+
+    public void setOrderstatus(String orderstatus) {
+        this.orderstatus = orderstatus;
+    }
+
+
+
+
+    public String getUserlat() {
+        return userlat;
+    }
+
+    public void setUserlat(String userlat) {
+        this.userlat = userlat;
+    }
+
+    public String getUserlong() {
+        return userlong;
+    }
+
+    public void setUserlong(String userlong) {
+        this.userlong = userlong;
+    }
+
+    String userlong;
 
     public OrdersModel() {
     }
@@ -54,12 +90,15 @@ public class OrdersModel {
         this.price = price;
     }
 
-    public OrdersModel(String id, String userid, String orderdate, String medname, String quantity, String price) {
+    public OrdersModel(String id, String userid, String orderdate, String medname, String quantity, String price, String userlat,  String userlong, String orderstatus) {
         this.id = id;
         this.userid = userid;
         this.orderdate = orderdate;
         this.medname = medname;
         this.quantity = quantity;
         this.price = price;
+        this.userlat = userlat;
+        this.orderstatus = orderstatus;
+        this.userlong = userlong;
     }
 }

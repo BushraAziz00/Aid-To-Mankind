@@ -1,32 +1,22 @@
 <LinearLayout android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:minHeight="250dp"
     android:orientation="vertical"
     android:layout_margin="5dp"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
+
+
     <com.google.android.material.textfield.TextInputLayout
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Enter Your Promo Code">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/storyET"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            />
-
-    </com.google.android.material.textfield.TextInputLayout>
-    <com.google.android.material.textfield.TextInputLayout
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:hint="Enter Quantity">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/quantityET"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -35,14 +25,14 @@
         android:layout_height="wrap_content">
 
         <Button
-            android:id="@+id/btnPlaceOrder"
+            android:id="@+id/btnAddQnty"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:layout_marginRight="5dp"
             android:layout_weight="1"
             android:backgroundTint="#000"
-            android:text="Place Order"
+            android:text="Add Quantity"
             android:textColor="#FFFFFFFF" />
 
         <Button

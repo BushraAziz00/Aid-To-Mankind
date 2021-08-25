@@ -11,39 +11,44 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import com.google.firebase.auth.FirebaseAuth;
 
-public class UserDashboardActivity extends AppCompatActivity {
+public class AdminDashboardActivity extends AppCompatActivity {
+    LinearLayout AddMedLL, OrderLL, ManageInventoryLL;
+
 
     private FirebaseAuth auth;
-    LinearLayout FindMedLL, MyOrderLL, SpecialOffersLL, NearbyLL;
     int images[] = {R.drawable.slider_1,R.drawable.slider_2, R.drawable.slider_3, R.drawable.slider_4, R.drawable.slider_5};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_dashboard);
+        setContentView(R.layout.activity_admin_dashboard);
         auth=FirebaseAuth.getInstance();
-        FindMedLL=findViewById(R.id.FindMedLL);
-        FindMedLL.setOnClickListener(new View.OnClickListener() {
+        AddMedLL=findViewById(R.id.AddMedLL);
+        AddMedLL.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(UserDashboardActivity.this, "Clicked", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(getBaseContext(), OrdersActivity.class));
+                startActivity(new Intent(getBaseContext(), AddMedicineActivity.class));
             }
         });
-        MyOrderLL=findViewById(R.id.MyOrderLL);
-        MyOrderLL.setOnClickListener(new View.OnClickListener() {
+        OrderLL=findViewById(R.id.OrderLL);
+        OrderLL.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getBaseContext(), MyOrdersActivity.class));
+                startActivity(new Intent(getBaseContext(), ManageOrdersActivity.class));
             }
         });
-        SpecialOffersLL=findViewById(R.id.SpecialOffersLL);
-        NearbyLL=findViewById(R.id.NearbyLL);
+        ManageInventoryLL=findViewById(R.id.ManageInventoryLL);
+        ManageInventoryLL.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getBaseContext(), ManageMedicineActivity.class));
+            }
+        });
+        ManageInventoryLL=findViewById(R.id.NearbyLL);
 
         ViewFlipper simpleViewFlipper = findViewById(R.id.simpleViewFlipper); // get the reference of ViewFlipper
         for (int i = 0; i < images.length; i++) {
@@ -83,7 +88,7 @@ public class UserDashboardActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.logout_item) {
             auth.signOut();
-            startActivity(new Intent(UserDashboardActivity.this, MainActivity.class));
+            startActivity(new Intent(AdminDashboardActivity.this, MainActivity.class));
             finish();
             return true;
         }

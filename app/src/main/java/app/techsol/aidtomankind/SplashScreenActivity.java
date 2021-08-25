@@ -12,22 +12,20 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class SplashScreenActivity extends AppCompatActivity {
 
-    TextView appNameTV;
     ImageView logoImg;
     TextView mSlogenTV;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
-        getActionBar().hide();
+//        getActionBar().hide();
         mSlogenTV=findViewById(R.id.mSlogenTV);
-
         logoImg=findViewById(R.id.logoImg);
         Animation myanim = AnimationUtils.loadAnimation(this, R.anim.mytrans);
         Animation myTwoanim = AnimationUtils.loadAnimation(this, R.anim.spin_in);
         Animation myFirstanim = AnimationUtils.loadAnimation(this, R.anim.spineone);
         logoImg.setAnimation(myFirstanim);
-        appNameTV.setAnimation(myanim);
+//        appNameTV.setAnimation(myanim);
         mSlogenTV.setAnimation(myTwoanim);
         gotoMainpage();
         getSupportActionBar().hide();

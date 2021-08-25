@@ -28,8 +28,11 @@ import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
 import org.jetbrains.annotations.NotNull;
@@ -42,11 +45,11 @@ import java.util.Locale;
 
 import app.techsol.aidtomankind.Models.MedicineModel;
 import app.techsol.aidtomankind.Models.OrdersModel;
+import app.techsol.aidtomankind.Models.UserModel;
 
 public class OrdersActivity extends AppCompatActivity {
 
-    DatabaseReference CustomerReference;
-    List<MedicineModel> modelList;
+    DatabaseReference CustomerReference, OrdersRef;
 
     RecyclerView mCustomerRecycVw;
     FirebaseAuth auth;
@@ -56,41 +59,30 @@ public class OrdersActivity extends AppCompatActivity {
     private Button btnCancel;
     private EditText storyET;
     Button btnPlaceOrder;
-    private TextView MedInfoTV, seekerStoryTV;
-    DatabaseReference OrderRef;
+    private TextView MedInfoTV;
+    DatabaseReference UserRef;
     private EditText quantityET;
-    MaterialSearchView searchView;
     private DatabaseReference MedicineRef;
+    private String userLat, userLong;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_orders);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-
-        getSupportActionBar().setCustomView(toolbar);
-
-//        setSupportActionBar(toolbar);
-
-        toolbar.setTitle("");
-
-
-        toolbar.setTitleTextColor(Color.WHITE);
-        View rootview = findViewById(android.R.id.content);
-        modelList = new ArrayList<>();
 
         auth = FirebaseAuth.getInstance();
-        CustomerReference = FirebaseDatabase.getInstance().getReference().child("Medicines");
-        OrderRef = FirebaseDatabase.getInstance().getReference().child("Orders");
+        OrdersRef = FirebaseDatabase.getInstance().getReference().child("Orders");
+        MedicineRef = FirebaseDatabase.getInstance().getReference().child("Medicines");
+        UserRef = FirebaseDatabase.getInstance().getReference().child("Users");
         view = findViewById(R.id.customer_content_main);
-        searchView = findViewById(R.id.search_view);
         mCustomerRecycVw = findViewById(R.id.main_recycler_vw);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
         mCustomerRecycVw.setLayoutManager(mLayoutManager);
+        getUserLocation(auth.getCurrentUser().getUid());
 
         FirebaseRecyclerOptions<MedicineModel> options = new FirebaseRecyclerOptions.Builder<MedicineModel>()
-                .setQuery(CustomerReference, MedicineModel.class)
+                .setQuery(MedicineRef, MedicineModel.class)
                 .build();
 
         final FirebaseRecyclerAdapter<MedicineModel, CustomersViewHolder> adapter = new FirebaseRecyclerAdapter<MedicineModel, CustomersViewHolder>(options) {
@@ -114,7 +106,7 @@ public class OrdersActivity extends AppCompatActivity {
                 holder.medInfoImgBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        viewStoryDialog("model.getInfo()");
+                        viewInfoDialog(model.getInfo());
                     }
                 });
 
@@ -174,13 +166,13 @@ public class OrdersActivity extends AppCompatActivity {
         btnPlaceOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String pushid = OrderRef.push().getKey();
+                String pushid = UserRef.push().getKey();
 //                String userId=auth.getCurrentUser().getUid();
 
                 String currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
 
-                OrdersModel model = new OrdersModel(pushid, "UserId", currentDate, MedName, quantityET.getText().toString(), price);
-                OrderRef.child(pushid).setValue(model).addOnCompleteListener(new OnCompleteListener<Void>() {
+                OrdersModel model = new OrdersModel(pushid, auth.getCurrentUser().getUid(), currentDate, MedName, quantityET.getText().toString(), price, userLat, userLong, "Placed");
+                OrdersRef.child(pushid).setValue(model).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull @NotNull Task<Void> task) {
                         Toast.makeText(OrdersActivity.this, "Order Placed Successfully", Toast.LENGTH_SHORT).show();
@@ -200,7 +192,7 @@ public class OrdersActivity extends AppCompatActivity {
         dialog.show();
     }
 
-    private void viewStoryDialog(String MedInfo) {
+    private void viewInfoDialog(String MedInfo) {
         dialog = new Dialog(OrdersActivity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
         dialog.setContentView(R.layout.item_viewmedinfo_dialog_layout);
         dialog.getWindow().getAttributes().windowAnimations = R.style.Theme_AppCompat_DayNight_Dialog_Alert;
@@ -213,137 +205,26 @@ public class OrdersActivity extends AppCompatActivity {
         MedInfoTV.setText(MedInfo);
         dialog.show();
     }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.search_menu, menu);
-
-        MenuItem item = menu.findItem(R.id.action_search);
-        searchView.setMenuItem(item);
-        return true;
-    }
-
-    View getSearchResults() {
-        searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
+    void getUserLocation(String userid) {
+        UserRef.child(userid).addValueEventListener(new ValueEventListener() {
             @Override
-            public boolean onQueryTextSubmit(String query) {
-                if (!query.isEmpty()) {
-                    setRecyclerWithQuery(query);
-                }
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists())
+                    userLat = dataSnapshot.child("userlat").getValue().toString();
+                userLong = dataSnapshot.child("userlong").getValue().toString();
+//                Toast.makeText(MainActivity.this, UserType, Toast.LENGTH_SHORT).show();
 
 
-                return true;
+                finish();
             }
 
             @Override
-            public boolean onQueryTextChange(String newText) {
-                if (newText.length() > 0) {
-                    setRecyclerWithTextChange(newText);
-                }
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
-
-                return true;
             }
         });
-
-
-        return view;
     }
 
-    private void setRecyclerWithQuery(final String query) {
-        FirebaseRecyclerOptions<MedicineModel> options = new FirebaseRecyclerOptions.Builder<MedicineModel>()
-                .setQuery(CustomerReference, MedicineModel.class)
-                .build();
-
-        final FirebaseRecyclerAdapter<MedicineModel, CustomersViewHolder> adapter = new FirebaseRecyclerAdapter<MedicineModel, CustomersViewHolder>(options) {
-            @Override
-            protected void onBindViewHolder(@NonNull final CustomersViewHolder holder, final int position, @NonNull final MedicineModel model) {
-
-
-                DisplayMetrics displaymetrics = new DisplayMetrics();
-                getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
-                //if you need three fix imageview in width
-
-
-                holder.MedNameTV.setText(model.getName());
-                holder.MedPriceTV.setText("Rs/- " + model.getPrice());
-                holder.ForwardImgBtn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        openDialog(model.getId(), model.getName(), model.getPrice());
-                    }
-                });
-                holder.medInfoImgBtn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        viewStoryDialog("model.getInfo()");
-                    }
-                });
-
-
-            }
-
-            @NonNull
-            @Override
-            public CustomersViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-
-                View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_medince_layout, viewGroup, false);
-                CustomersViewHolder customersViewHolder = new CustomersViewHolder(view);
-                return customersViewHolder;
-            }
-        };
-
-        mCustomerRecycVw.setAdapter(adapter);
-        adapter.startListening();
-    }
-
-    private void setRecyclerWithTextChange(final String query) {
-
-        FirebaseRecyclerOptions<MedicineModel> options = new FirebaseRecyclerOptions.Builder<MedicineModel>()
-                .setQuery(CustomerReference, MedicineModel.class)
-                .build();
-
-        final FirebaseRecyclerAdapter<MedicineModel, CustomersViewHolder> adapter = new FirebaseRecyclerAdapter<MedicineModel, CustomersViewHolder>(options) {
-            @Override
-            protected void onBindViewHolder(@NonNull final CustomersViewHolder holder, final int position, @NonNull final MedicineModel model) {
-
-
-                DisplayMetrics displaymetrics = new DisplayMetrics();
-                getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
-                //if you need three fix imageview in width
-
-                holder.MedNameTV.setText(model.getName());
-                holder.MedPriceTV.setText("Rs/- " + model.getPrice());
-                holder.ForwardImgBtn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        openDialog(model.getId(), model.getName(), model.getPrice());
-                    }
-                });
-                holder.medInfoImgBtn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        viewStoryDialog("model.getInfo()");
-                    }
-                });
-
-
-            }
-
-            @NonNull
-            @Override
-            public CustomersViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-
-                View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_medince_layout, viewGroup, false);
-                CustomersViewHolder customersViewHolder = new CustomersViewHolder(view);
-                return customersViewHolder;
-            }
-        };
-
-        mCustomerRecycVw.setAdapter(adapter);
-        adapter.startListening();
-    }
 }
 
 

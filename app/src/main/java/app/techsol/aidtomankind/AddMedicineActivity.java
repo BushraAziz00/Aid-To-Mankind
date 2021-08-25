@@ -90,7 +90,7 @@ public class AddMedicineActivity extends AppCompatActivity {
                                 snackbar.setAction("Ok", new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
-                                        startActivity(new Intent(AddMedicineActivity.this, MainActivity.class));
+                                        startActivity(new Intent(AddMedicineActivity.this, ManageMedicineActivity.class));
                                         snackbar.dismiss();
                                     }
                                 });

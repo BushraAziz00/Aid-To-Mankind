@@ -1,53 +1,109 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="50dp"
-    android:layout_margin="5dp">
+    android:layout_height="100dp"
+    android:layout_margin="5dp"
+    app:cardCornerRadius="5dp"
+    app:cardElevation="5dp">
 
     <LinearLayout
+        android:id="@+id/LinearLayoutId"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:weightSum="2.5">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/OrderQnty"
-            android:textSize="16sp"
-            android:textStyle="bold"
+        <androidx.cardview.widget.CardView
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight=".5"
-            android:gravity="center"
-            android:text="# 1" />
-        <View
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
-            android:background="#000"
-            android:layout_width=".5dp"
-            android:layout_height="match_parent" />
+            android:layout_margin="5dp"
+            android:layout_weight="0.3"
+            app:cardCornerRadius="5dp"
+            app:cardElevation="5dp">
 
-        <TextView
-            android:id="@+id/OrderDate"
+            <TextView
+                android:id="@+id/OrderStatusTV"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="Placed"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+        </androidx.cardview.widget.CardView>
+
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:fontFamily="@font/abhaya_libre"
-            android:gravity="center"
-            android:text="27-11-2019"
-            android:textSize="16sp" />
-        <View
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
-            android:background="#000"
-            android:layout_width=".5dp"
-            android:layout_height="match_parent" />
+            android:layout_weight="0.6"
+            android:orientation="vertical"
+            android:paddingLeft="10dp">
 
-        <TextView
-            android:id="@+id/orderAmount"
+            <TextView
+                android:id="@+id/OrderNameTV"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.5"
+                android:gravity="bottom"
+                android:paddingLeft="5dp"
+                android:paddingBottom="5dp"
+                android:text="Panadols Plus"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:fontFamily="@font/roboto_medium" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.5"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/OrderPriceTV"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5"
+                    android:gravity="center"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="5dp"
+                    android:text="Rs/- 430"
+                    app:fontFamily="sans-serif-light" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="#000" />
+
+                <TextView
+                    android:id="@+id/OrderQntyTV"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5"
+                    android:gravity="center"
+                    android:paddingTop="10dp"
+                    android:text="Qiantity: 30"
+                    app:fontFamily="sans-serif-light" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <FrameLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:fontFamily="serif"
-            android:gravity="center"
-            android:text="1700"
-            android:textSize="16sp" />
+            android:layout_weight="0.1">
+
+            <ImageView
+                android:id="@+id/UpdateStatusIV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/ic_down_arrow" />
+
+            <ProgressBar
+                android:id="@+id/proressBarLoading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:visibility="gone" />
+        </FrameLayout>
+
     </LinearLayout>
 </androidx.cardview.widget.CardView>

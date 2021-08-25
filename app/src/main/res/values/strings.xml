@@ -6,4 +6,10 @@
         <item>Stomach</item>
         <item>Artho</item>
     </string-array>
+
+    <string-array name="user_type">
+        <item>User</item>
+        <item>Pharmacist</item>
+    </string-array>
+    <string name="title_activity_maps">Map</string>
 </resources>

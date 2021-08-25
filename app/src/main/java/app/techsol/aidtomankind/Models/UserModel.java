@@ -79,6 +79,35 @@ public class UserModel {
         this.userlong = userlong;
     }
 
-    String userid,phoneno, email, address, name, password, userlat, userlong;;
+    String userid;
+    String phoneno;
+    String email;
+    String address;
+    String name;
+    String password;
+    String userlat;
+    String userlong;
+
+    public String getUsertype() {
+        return usertype;
+    }
+
+    public void setUsertype(String usertype) {
+        this.usertype = usertype;
+    }
+
+    public UserModel(String userid, String phoneno, String email, String address, String name, String password, String userlat, String userlong, String usertype) {
+        this.userid = userid;
+        this.phoneno = phoneno;
+        this.email = email;
+        this.address = address;
+        this.name = name;
+        this.password = password;
+        this.userlat = userlat;
+        this.userlong = userlong;
+        this.usertype = usertype;
+    }
+
+    String usertype;
 
 }

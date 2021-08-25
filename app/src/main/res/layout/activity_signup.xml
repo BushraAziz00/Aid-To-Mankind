@@ -21,90 +21,91 @@
         android:orientation="vertical">
 
 
-
-
         <com.google.android.material.textfield.TextInputLayout
             style="@style/LoginTextInputLayoutStyle"
             android:layout_width="match_parent"
-            android:layout_marginBottom="5dp"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
             android:hint="Phone No"
             android:textColorHint="#A3A3A5"
             android:theme="@style/LoginTextInputLayoutStyle"
             app:boxStrokeColor="#fff">
-
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/phoneET"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:inputType="number"
-                android:textColor="#fff"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:textColor="#fff" />
 
         </com.google.android.material.textfield.TextInputLayout>
+
         <com.google.android.material.textfield.TextInputLayout
             style="@style/LoginTextInputLayoutStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
             android:hint="Email"
-        android:layout_marginBottom="5dp"
             android:textColorHint="#A3A3A5"
             android:theme="@style/LoginTextInputLayoutStyle"
             app:boxStrokeColor="#fff">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:inputType="textEmailAddress"
                 android:id="@+id/EmailET"
-                android:textColor="#fff"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:inputType="textEmailAddress"
+                android:textColor="#fff" />
 
         </com.google.android.material.textfield.TextInputLayout>
+
         <com.google.android.material.textfield.TextInputLayout
             style="@style/LoginTextInputLayoutStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
             android:hint="Address"
-            android:layout_marginBottom="5dp"
             android:textColorHint="#A3A3A5"
             android:theme="@style/LoginTextInputLayoutStyle"
             app:boxStrokeColor="#fff">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:inputType="text"
                 android:id="@+id/AddressET"
-                android:textColor="#fff"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:textColor="#fff" />
 
         </com.google.android.material.textfield.TextInputLayout>
+
         <com.google.android.material.textfield.TextInputLayout
             style="@style/LoginTextInputLayoutStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Name"
             android:layout_marginBottom="5dp"
+            android:hint="Name"
 
             android:textColorHint="#A3A3A5"
             android:theme="@style/LoginTextInputLayoutStyle"
             app:boxStrokeColor="#fff">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:inputType="text"
                 android:id="@+id/NameET"
-                android:textColor="#fff"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:textColor="#fff" />
 
         </com.google.android.material.textfield.TextInputLayout>
+
         <com.google.android.material.textfield.TextInputLayout
             style="@style/LoginTextInputLayoutStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Password"
-            app:passwordToggleEnabled="true"
             android:textColorHint="#A3A3A5"
             android:theme="@style/LoginTextInputLayoutStyle"
-            app:boxStrokeColor="#fff">
+            app:boxStrokeColor="#fff"
+            app:passwordToggleEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/passwordET"
@@ -114,8 +115,6 @@
                 android:textColor="#fff" />
 
         </com.google.android.material.textfield.TextInputLayout>
-
-
 
         <Button
             android:id="@+id/signupBtn"
@@ -155,6 +154,11 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
+        <Spinner
+            android:id="@+id/userTypeSpnr"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:entries="@array/user_type" />
 
         <Button
             android:id="@+id/verifyCodeBtn"

@@ -48,6 +48,7 @@ public class SignupActivity extends AppCompatActivity implements LocationListene
     DatabaseReference userRef;
     private LocationManager locationManager;
 
+    Spinner userTypeSpnr;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +58,7 @@ public class SignupActivity extends AppCompatActivity implements LocationListene
         auth = FirebaseAuth.getInstance();
         view = findViewById(R.id.getView);
 
+        userTypeSpnr = findViewById(R.id.userTypeSpnr);
         mProgressBar = findViewById(R.id.mProgressBar);
         NameET = findViewById(R.id.NameET);
         EmailET = findViewById(R.id.EmailET);
@@ -64,26 +66,10 @@ public class SignupActivity extends AppCompatActivity implements LocationListene
         NameET = findViewById(R.id.NameET);
         passwordET = findViewById(R.id.passwordET);
         signupBtn = findViewById(R.id.signupBtn);
-
-        locationManager = (LocationManager) getSystemService(getApplicationContext().LOCATION_SERVICE);
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
-        }
-        ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
-
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
         signupBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 getStrings();
-                Toast.makeText(SignupActivity.this, "Test Button", Toast.LENGTH_SHORT).show();
                 if (nameStr.isEmpty()) {
                     NameET.setError("Enter Name");
                 } else if (emailStr.isEmpty()) {
@@ -103,7 +89,7 @@ public class SignupActivity extends AppCompatActivity implements LocationListene
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
                                 String userid = auth.getCurrentUser().getUid();
-                                UserModel model = new UserModel(userid, phoneStr, emailStr, AddressStr, nameStr,passwordET.getText().toString(), userLat, userLong);
+                                UserModel model = new UserModel(userid, phoneStr, emailStr, AddressStr, nameStr,passwordET.getText().toString(), userLat, userLong, userTypeSpnr.getSelectedItem().toString());
                                 userRef.child(userid).setValue(model).addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
@@ -138,6 +124,21 @@ public class SignupActivity extends AppCompatActivity implements LocationListene
                 }
             }
         });
+
+        locationManager = (LocationManager) getSystemService(getApplicationContext().LOCATION_SERVICE);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
 
     }
 
@@ -174,4 +175,6 @@ public class SignupActivity extends AppCompatActivity implements LocationListene
             // permissions this app might request
         }
     }
+
+
 }

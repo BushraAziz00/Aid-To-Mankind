@@ -10,7 +10,6 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,11 +28,12 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import org.jetbrains.annotations.NotNull;
 
-import app.techsol.aidtomankind.Models.OrdersModel;
+import app.techsol.aidtomankind.Models.MedicineModel;
 
-public class ManageOrdersActivity extends AppCompatActivity {
-    DatabaseReference OrdersRef;
-    RecyclerView MedRecycView;
+public class ManageMedicineActivity extends AppCompatActivity {
+
+    DatabaseReference MedRef;
+    RecyclerView mCustomerRecycVw;
     FirebaseAuth auth;
     FrameLayout view;
     private String userid;
@@ -42,51 +42,49 @@ public class ManageOrdersActivity extends AppCompatActivity {
     private EditText storyET;
     Button btnAddStory;
     private TextView donorStoryTV, seekerStoryTV;
-    private Button btnAddQnty, quantityET;
-    TextView OrderStatusTV, OrderNameTV, OrderPriceTV;
-    ImageView UpdateStatusIV;
+    private Button btnAddQnty;
+    EditText quantityET;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_manage_orders);
+        setContentView(R.layout.activity_manage_medicine);
         View rootview = findViewById(android.R.id.content);
 
         auth = FirebaseAuth.getInstance();
         userid = auth.getCurrentUser().getUid();
-        OrdersRef = FirebaseDatabase.getInstance().getReference().child("Orders");
+        MedRef = FirebaseDatabase.getInstance().getReference().child("Medicines");
         view = findViewById(R.id.customer_content_main);
-        MedRecycView = findViewById(R.id.main_recycler_vw);
+        mCustomerRecycVw = findViewById(R.id.main_recycler_vw);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
-        MedRecycView.setLayoutManager(mLayoutManager);
-        FirebaseRecyclerOptions<OrdersModel> options = new FirebaseRecyclerOptions.Builder<OrdersModel>()
-                .setQuery(OrdersRef, OrdersModel.class)
+        mCustomerRecycVw.setLayoutManager(mLayoutManager);
+        FirebaseRecyclerOptions<MedicineModel> options = new FirebaseRecyclerOptions.Builder<MedicineModel>()
+                .setQuery(MedRef, MedicineModel.class)
                 .build();
 
-        final FirebaseRecyclerAdapter<OrdersModel, CustomersViewHolder> adapter = new FirebaseRecyclerAdapter<OrdersModel, CustomersViewHolder>(options) {
+        final FirebaseRecyclerAdapter<MedicineModel, CustomersViewHolder> adapter = new FirebaseRecyclerAdapter<MedicineModel, CustomersViewHolder>(options) {
             @Override
-            protected void onBindViewHolder(@NonNull final CustomersViewHolder holder, final int position, @NonNull final OrdersModel model) {
+            protected void onBindViewHolder(@NonNull final CustomersViewHolder holder, final int position, @NonNull final MedicineModel model) {
 
 
                 DisplayMetrics displaymetrics = new DisplayMetrics();
                 getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
                 //if you need three fix imageview in width
 
-                holder.OrderStatusTV.setText(model.getOrderstatus());
-                holder.OrderNameTV.setText(model.getMedname());
-                holder.OrderPriceTV.setText("Rs/-"+model.getPrice());
-                holder.OrderQntyTV.setText("Quantity"+model.getQuantity());
-                holder.UpdateStatusIV.setOnClickListener(new View.OnClickListener() {
+                holder.MedQntyTV.setText(model.getQuantity());
+                holder.MedNameTV.setText(model.getName());
+                int quantitiy = Integer.parseInt(model.getQuantity());
+                if (quantitiy < 10) {
+                    holder.MedStatusTV.setText("Critically Low");
+                } else if (quantitiy < 100) {
+                    holder.MedStatusTV.setText("Low");
+                } else {
+                    holder.MedStatusTV.setText("Enough");
+                }
+                holder.MedStatusTV.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        OrdersRef.child(model.getId()).child("orderstatus").setValue("Accepted").addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull @NotNull Task<Void> task) {
-                                if (task.isSuccessful()) {
-                                    Toast.makeText(ManageOrdersActivity.this, "Order Status Updated Successfully", Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        });
+                        viewStoryDialog(model.getId(), quantitiy);
                     }
                 });
             }
@@ -95,12 +93,12 @@ public class ManageOrdersActivity extends AppCompatActivity {
             @Override
             public CustomersViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
 
-                View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.iitem_myorders_layout, viewGroup, false);
+                View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_manage_medicine_layout, viewGroup, false);
                 CustomersViewHolder customersViewHolder = new CustomersViewHolder(view);
                 return customersViewHolder;
             }
         };
-        MedRecycView.setAdapter(adapter);
+        mCustomerRecycVw.setAdapter(adapter);
         adapter.startListening();
     }
 
@@ -108,24 +106,19 @@ public class ManageOrdersActivity extends AppCompatActivity {
     public static class CustomersViewHolder extends RecyclerView.ViewHolder {
 
 
-        TextView OrderStatusTV, OrderNameTV, OrderPriceTV, OrderQntyTV;
-
-        ImageView UpdateStatusIV;
+        TextView MedQntyTV, MedNameTV, MedStatusTV;
 
         public CustomersViewHolder(@NonNull View itemView) {
             super(itemView);
-            OrderStatusTV = itemView.findViewById(R.id.OrderStatusTV);
-            OrderNameTV = itemView.findViewById(R.id.OrderNameTV);
-            OrderPriceTV = itemView.findViewById(R.id.OrderPriceTV);
-            OrderQntyTV = itemView.findViewById(R.id.OrderQntyTV);
-            UpdateStatusIV = itemView.findViewById(R.id.UpdateStatusIV);
-
+            MedQntyTV = itemView.findViewById(R.id.MedQntyTV);
+            MedNameTV = itemView.findViewById(R.id.MedNameTV);
+            MedStatusTV = itemView.findViewById(R.id.MedStatusTV);
 
         }
     }
 
     private void viewStoryDialog(String MedId, int previousQnty) {
-        dialog = new Dialog(ManageOrdersActivity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
+        dialog = new Dialog(ManageMedicineActivity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
         dialog.setContentView(R.layout.add_med_dialog_layout);
         dialog.getWindow().getAttributes().windowAnimations = R.style.Theme_AppCompat_DayNight_Dialog_Alert;
         dialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL, WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL);
@@ -136,11 +129,11 @@ public class ManageOrdersActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 int newQnty = Integer.parseInt(quantityET.getText().toString());
-                OrdersRef.child(MedId).setValue((previousQnty + newQnty) + "").addOnCompleteListener(new OnCompleteListener<Void>() {
+                MedRef.child(MedId).setValue((previousQnty + newQnty) + "").addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull @NotNull Task<Void> task) {
                         if (task.isSuccessful()) {
-                            Toast.makeText(ManageOrdersActivity.this, "New Medicine Added", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ManageMedicineActivity.this, "New Medicine Added", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
